@@ -1,3 +1,4 @@
+#include <bit>
 #include <tuple>
 #include <iostream>
 #include <cstdint>
@@ -23,11 +24,6 @@ namespace {
         );
     }
 
-    inline constexpr HalfBlock leftRotate(HalfBlock t, int shift) {
-        assert(i < 16);
-        return (t << shift) | (t >> (16 - shift));
-    }
-
     inline constexpr HalfBlock e(int i) {
         assert(i < 16);
         return uint16_t(1) << i;
@@ -37,7 +33,7 @@ namespace {
         auto &x = get<0>(xy);
         auto &y = get<1>(xy);
         y ^= x;
-        x = leftRotate(x, y & 15);
+        x = rotl(x, y & 15);
         x ^= k;
         return make_tuple(y, x);
     }
@@ -93,7 +89,7 @@ namespace {
                 result2.resize(0);
 
                 Block a1(randomHalfBlock(), randomHalfBlock());
-                Block a2 = a1 ^characteristic.front();
+                Block a2 = (a1 ^ characteristic.front());
 
                 encrypt(keys, a1, result1);
                 encrypt(keys, a2, result2);
