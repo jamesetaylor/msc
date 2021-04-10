@@ -90,7 +90,7 @@ namespace {
         }
 
         /**
-         * Filter ciphertext pairs that have zero difference in the leftmost 16 bits.  Accesses only the ciphertext.
+         * Filter ciphertext pairs that have zero difference in the leftmost 16 state_.  Accesses only the ciphertext.
          */
         inline bool filter(tuple<Blocks, Blocks> const &encryptionResults) const {
             assert(11 == get<0>(encryptionResults).size());

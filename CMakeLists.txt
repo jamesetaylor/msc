@@ -5,3 +5,5 @@ set(CMAKE_CXX_STANDARD 20)
 
 add_executable(rc5plus rc5plus.cpp)
 add_executable(rc5plus2 rc5plus2.cpp)
+add_executable(lfsr lfsr.cpp)
+add_executable(geffe geffe.cpp)
