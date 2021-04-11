@@ -1,9 +1,10 @@
 #include "lfsr.hpp"
 #include <random>
 #include <vector>
+#include "BitStreamTests.hpp"
 
 template<int len, int taps>
-void f(std::uint64_t iv, int count, std::ostream& o, std::vector<char>&v) {
+void f(std::uint64_t iv, int count, std::ostream &o, std::vector<char> &v) {
     Lfsr<len, taps> lfsr(iv);
 
     o << " |" << lfsr << std::endl;
@@ -35,9 +36,32 @@ void unit6_question() {
 int main() {
     std::mt19937 prng;
     prng.seed(std::random_device()());
-    std::uniform_int_distribution<std::uint64_t> d(1, std::numeric_limits<std::uint64_t>::max());
+    std::uniform_int_distribution<std::uint64_t> d(1, (1 << 21) - 1);
 
     unit6_question();
+
+    typedef Lfsr<24> LfsrType;
+    LfsrType lfsr(d(prng));
+
+    {
+        PokerTest<5> pokerTest(std::bind(&LfsrType::next, &lfsr));
+        for (int i = 0; i < 1 << 20; ++i) {
+            pokerTest.extractObservation();
+        }
+        std::cout << "poker test: " << std::endl;
+        std::cout << pokerTest << std::endl;
+        std::cout << "chi-squared confidence-value = " << pokerTest.chiSquaredPValue() << std::endl;
+    }
+
+    {
+        SerialTest<5> serialTest(std::bind(&LfsrType::next, &lfsr));
+        for (int i = 0; i < 1 << 20; ++i) {
+            serialTest.extractObservation();
+        }
+        std::cout << "serial test: " << std::endl;
+        std::cout << serialTest << std::endl;
+        std::cout << "chi-squared confidence-value = " << serialTest.chiSquaredPValue() << std::endl;
+    }
 
     return EXIT_SUCCESS;
 }

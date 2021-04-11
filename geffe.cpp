@@ -47,7 +47,7 @@ std::uint64_t guessIv(std::vector<bool> const &targetStream) {
             }
         }
 
-        std::cout << "i = " << i << ", sum = " << sum << std::endl;
+        std::cout << "i = " << i << ", total = " << sum << std::endl;
         if (sum > bestIvCount) {
             bestIv = i;
             bestIvCount = sum;

@@ -1,8 +1,13 @@
+#ifndef MSC_LFSR_HPP
+#define MSC_LFSR_HPP
+
 #include <cstdint>
 #include <bit>
 #include <iostream>
+#include <vector>
 
-template<int len> struct PrimitivePolynomial;
+template<int len>
+struct PrimitivePolynomial;
 template<> struct PrimitivePolynomial<1> { static constexpr std::uint64_t value = 0b1ull; };
 template<> struct PrimitivePolynomial<2> { static constexpr std::uint64_t value = 0b11ull; };
 template<> struct PrimitivePolynomial<3> { static constexpr std::uint64_t value = 0b110ull; };
@@ -18,6 +23,15 @@ template<> struct PrimitivePolynomial<12> { static constexpr std::uint64_t value
 template<> struct PrimitivePolynomial<13> { static constexpr std::uint64_t value = 0b1110010000000ull; };
 template<> struct PrimitivePolynomial<14> { static constexpr std::uint64_t value = 0b11100000000010ull; };
 template<> struct PrimitivePolynomial<15> { static constexpr std::uint64_t value = 0b110000000000000ull; };
+template<> struct PrimitivePolynomial<16> { static constexpr std::uint64_t value = 0b1101000000001000ull; };
+template<> struct PrimitivePolynomial<17> { static constexpr std::uint64_t value = 0b10010000000000000ull; };
+template<> struct PrimitivePolynomial<18> { static constexpr std::uint64_t value = 0b100000010000000000ull; };
+template<> struct PrimitivePolynomial<19> { static constexpr std::uint64_t value = 0b1110010000000000000ull; };
+template<> struct PrimitivePolynomial<20> { static constexpr std::uint64_t value = 0b10010000000000000000ull; };
+template<> struct PrimitivePolynomial<21> { static constexpr std::uint64_t value = 0b101000000000000000000ull; };
+template<> struct PrimitivePolynomial<22> { static constexpr std::uint64_t value = 0b1100000000000000000000ull; };
+template<> struct PrimitivePolynomial<23> { static constexpr std::uint64_t value = 0b10000100000000000000000ull; };
+template<> struct PrimitivePolynomial<24> { static constexpr std::uint64_t value = 0b111000010000000000000000ull; };
 
 template<int len_, std::uint64_t taps_ = PrimitivePolynomial<len_>::value>
 class Lfsr {
@@ -58,3 +72,5 @@ public:
         return len_;
     }
 };
+
+#endif /* MSC_LFSR_HPP */

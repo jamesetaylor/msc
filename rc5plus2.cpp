@@ -147,7 +147,7 @@ namespace {
 
             /**
              * For each key for each right pair candidate, calculate a metric which will be 1 when k is the correct key
-             * and [0,16) otherwise.  The sum of this metric is stored per key in weights.  Since E(hwt) > 1 in general
+             * and [0,16) otherwise.  The total of this metric is stored per key in weights.  Since E(hwt) > 1 in general
              * but E(hwt) = 1 for the correct key, we expect the key with the lowest weight to be the correct key.
              */
             array<unsigned long, 1 << 16> weights;
